@@ -1,3 +1,5 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'InventoryManager/style.css' %}">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +7,8 @@
     <title>Inventory Manager</title>
 </head>
 <body>
-    <h1 style="text-align: center">Inventory Manager</h1>
+    <h1>Inventory Manager</h1>
+    <h2>Item Name List for Testing</h2>
     {% for x in items %}
         <li style="text-align: center">{{ x }}</li>
     {% endfor %}
