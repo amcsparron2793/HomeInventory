@@ -5,3 +5,9 @@ h1, h2 {
     text-align: center;
     text-decoration: underline;
 }
+
+.SubmittedInfo {
+    text-align: center;
+    color: red;
+    text-decoration:underline
+}

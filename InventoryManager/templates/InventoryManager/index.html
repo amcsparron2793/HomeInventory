@@ -9,9 +9,16 @@
 <body>
     <h1>Inventory Manager</h1>
     <h2>Enter UPC:</h2>
-    <form action="" method="POST" style="text-align: center">
+    <form action="{% url 'lookup' %}"
+          method="POST" style="text-align: center">{% csrf_token %}
         {{ in_out_form.as_p }}
         <input type="submit">
+        <br>
+
+        {% if InfoSubmitted %}
+            <br><text class="SubmittedInfo">The Following Was Submitted:</text>
+            <br>UPC: {{ InfoSubmitted.UPC }}<br>Type: {{ InfoSubmitted.Scan_Type }}<br>
+        {% endif %}
     </form>
 
 </body>
