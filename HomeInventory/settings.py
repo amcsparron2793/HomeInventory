@@ -44,6 +44,7 @@ def GetDBPass():
 # Application definition
 
 INSTALLED_APPS = [
+    'InventoryManager.apps.InventorymanagerConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
