@@ -1,13 +1,15 @@
 body {
-    background: lightblue;
+    background: #4287f5;
 }
 h1, h2 {
     text-align: center;
     text-decoration: underline;
 }
 
-.SubmittedInfo {
+.SubmittedInfoTitle {
     text-align: center;
-    color: red;
-    text-decoration:underline
+    color: #b5001b;
+    text-decoration:underline;
+    font-size: large;
+    font-weight: bold;
 }

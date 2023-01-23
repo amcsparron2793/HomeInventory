@@ -12,12 +12,14 @@
     <form action="{% url 'lookup' %}"
           method="POST" style="text-align: center">{% csrf_token %}
         {{ in_out_form.as_p }}
-        <input type="submit">
+        <input type="submit"> <input type="reset" value="Reset Form">
         <br>
 
         {% if InfoSubmitted %}
-            <br><text class="SubmittedInfo">The Following Was Submitted:</text>
-            <br>UPC: {{ InfoSubmitted.UPC }}<br>Type: {{ InfoSubmitted.Scan_Type }}<br>
+            <br><text class="SubmittedInfoTitle">The Following Was Submitted:</text>
+            <br><b>UPC:</b> {{ InfoSubmitted.UPC }}
+            <br><b>Type:</b> {{ InfoSubmitted.Scan_Type }}
+            <br>
         {% endif %}
     </form>
 
