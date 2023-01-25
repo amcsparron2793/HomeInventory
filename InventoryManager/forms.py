@@ -1,9 +1,9 @@
 from django import forms
 
-FormChoices = (("Check In", "Check In"), ("Check Out", "Check Out"), ("Status Check", "Status Check"))
+FormChoices = ["Check In", "Check Out", "Status Check"]
 
 
 class InOutForm(forms.Form):
     UPC = forms.IntegerField()
-    Scan_Type = forms.ChoiceField(choices=FormChoices)
+    Scan_Type = forms.ChoiceField(choices=[(x, x) for x in FormChoices])
 
