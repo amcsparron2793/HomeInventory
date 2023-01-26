@@ -13,8 +13,8 @@ def index(request):
 def _GetTechInventoryInfo(upc):
     Barcode_lookup = Barcodes.objects.all().filter(upc=upc)
     if Barcode_lookup:
-        # TODO: add in some barcodes as a test
-        pass
+        print(Barcode_lookup.values())
+        return Barcode_lookup.values()
 
 
 def lookup(request):
@@ -24,5 +24,10 @@ def lookup(request):
         if Form.is_valid():
             # TODO: lookup barcode, run function to check it in or out, or get data
             context['InfoSubmitted'] = Form.data
-            _GetTechInventoryInfo(Form.data.get('UPC'))
+            # TODO: now lookup item name and CheckIn status.
+            #  Then check scan type and do what it says.
+            #  Then return results
+            upc_match = _GetTechInventoryInfo(Form.data.get('UPC'))
+            if upc_match:
+                context['BarcodeMatch'] = upc_match
             return render(request, 'InventoryManager/index.html', context)

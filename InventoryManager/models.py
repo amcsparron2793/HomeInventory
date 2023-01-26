@@ -51,7 +51,7 @@ class Barcodes(models.Model):
     upc = models.IntegerField(unique=True)
 
     def __str__(self):
-        return self.upc
+        return str(self.upc)
 
     class Meta:
         verbose_name_plural = "Barcodes"
