@@ -22,11 +22,15 @@
             <br>
         {% endif %}
 
-        {% if BarcodeMatch %}
-            <br><text class="SubmittedInfoTitle">The Following Match Was Found:</text>
-            <br><b>Tech Inventory ID:</b> {{ BarcodeMatch.0.tech_inventory_id }}
-            <br><b>UPC:</b> {{ BarcodeMatch.0.upc }}
-            <br>
+        {% if SearchAttempted %}
+            {% if BarcodeMatch %}
+                <br><text class="SubmittedInfoTitle">The Following Match Was Found:</text>
+                <br><b>Tech Inventory ID:</b> {{ BarcodeMatch.tech_inventory_id }}
+                <br><b>UPC:</b> {{ BarcodeMatch.upc }}
+                <br>
+            {% else %}
+                <br><text class="SubmittedInfoTitle">No Matches Found!!</text>
+            {% endif %}
         {% endif %}
     </form>
 
