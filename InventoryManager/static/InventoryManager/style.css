@@ -13,3 +13,10 @@ h1, h2 {
     font-size: large;
     font-weight: bold;
 }
+
+.errorlist {
+    text-align: center;
+    color: #b5001b;
+    font-size: large;
+    font-weight: bold;
+}

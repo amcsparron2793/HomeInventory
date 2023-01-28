@@ -8,14 +8,20 @@
 </head>
 <body>
     <h1>Inventory Manager</h1>
-
     <form action="{% url 'lookup' %}"
           method="POST" style="text-align: center">{% csrf_token %}
         {{ in_out_form.as_p }}
         <input type="submit"> <input type="reset" value="Reset Form">
+    </form>
+    {% if Err %}
+        <div class="errorlist">
+            {% for err in Err.items %}
+                <br>ERROR:<br> Field: {{ err.0 }} <br>Message: {{ err.1.0.message }}
+            {% endfor %}
+        </div>
+    {% endif %}
 
-        <br>
-        {% if SearchAttempted %}
+    {% if SearchAttempted %}
             {% if BarcodeMatch %}
                 {% if InfoSubmitted.Scan_Type == "Status Check" %}
                     <br>
@@ -44,7 +50,6 @@
                 <br><text class="SubmittedInfoTitle">No Matches Found!!</text>
             {% endif %}
         {% endif %}
-    </form>
 
 </body>
 </html>

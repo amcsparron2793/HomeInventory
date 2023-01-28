@@ -43,10 +43,10 @@ def lookup(request):
     if request.method == "POST":
         context = {'in_out_form': InOutForm}
         Form = InOutForm(request.POST)
+
         if Form.is_valid():
-            # TODO: lookup barcode, run function to check it in or out, or get data
+            # lookup barcode, run function to check it in or out, or get data
             context['InfoSubmitted'] = Form.data
-            # TODO: now lookup item name and CheckIn status.
             submitted_upc_info = _GetTechInventoryInfo(Form.data.get('UPC'))
             scan_type = Form.data.get('Scan_Type')
             context['SearchAttempted'] = True
@@ -59,3 +59,17 @@ def lookup(request):
                     context['item_status'] = item_status
 
             return render(request, 'InventoryManager/index.html', context)
+        else:
+            print(Form.errors.as_data())
+            context['Err'] = Form.errors.as_data()
+            return render(request, 'InventoryManager/index.html', context)
+
+
+def _CheckIn():
+    # TODO: this
+    ...
+
+
+def _CheckOut():
+    # TODO: this
+    ...
