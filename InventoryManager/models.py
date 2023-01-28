@@ -65,7 +65,7 @@ class ItemStatus(models.Model):
         verbose_name_plural = "InOutStatus"
 
     def __str__(self):
-        return self.barcode
+        return str(self.barcode)
 
 
 class UseDescription(models.Model):

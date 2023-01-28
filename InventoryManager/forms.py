@@ -1,6 +1,6 @@
 from django import forms
 
-FormChoices = ["Check In", "Check Out", "Status Check"]
+FormChoices = ["Status Check", "Check In", "Check Out"]
 
 
 class InOutForm(forms.Form):
