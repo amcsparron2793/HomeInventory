@@ -47,13 +47,13 @@ def lookup(request):
             # TODO: lookup barcode, run function to check it in or out, or get data
             context['InfoSubmitted'] = Form.data
             # TODO: now lookup item name and CheckIn status.
-            tech_inv_upc_match = _GetTechInventoryInfo(Form.data.get('UPC'))
-            tech_inv_id = tech_inv_upc_match['tech_inventory_id']
+            submitted_upc_info = _GetTechInventoryInfo(Form.data.get('UPC'))
+            tech_inv_id = submitted_upc_info['tech_inventory_id']
             scan_type = Form.data.get('Scan_Type')
             context['SearchAttempted'] = True
-            if tech_inv_upc_match:
-                context['BarcodeMatch'] = tech_inv_upc_match
+            if submitted_upc_info:
+                context['BarcodeMatch'] = submitted_upc_info
                 if scan_type == "Status Check":
-                    item_status = _GetStatusCheck(tech_inv_id, tech_inv_upc_match['upc'])
+                    item_status = _GetStatusCheck(tech_inv_id, submitted_upc_info['upc'])
                     context['item_status'] = item_status
             return render(request, 'InventoryManager/index.html', context)
