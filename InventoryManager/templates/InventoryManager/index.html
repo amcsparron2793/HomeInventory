@@ -8,26 +8,38 @@
 </head>
 <body>
     <h1>Inventory Manager</h1>
-    <h2>Enter UPC:</h2>
+
     <form action="{% url 'lookup' %}"
           method="POST" style="text-align: center">{% csrf_token %}
         {{ in_out_form.as_p }}
         <input type="submit"> <input type="reset" value="Reset Form">
+
         <br>
-
-        {% if InfoSubmitted %}
-            <br><text class="SubmittedInfoTitle">The Following Was Submitted:</text>
-            <br><b>UPC:</b> {{ InfoSubmitted.UPC }}
-            <br><b>Type:</b> {{ InfoSubmitted.Scan_Type }}
-            <br>
-        {% endif %}
-
         {% if SearchAttempted %}
             {% if BarcodeMatch %}
-                <br><text class="SubmittedInfoTitle">The Following Match Was Found:</text>
-                <br><b>Tech Inventory ID:</b> {{ BarcodeMatch.tech_inventory_id }}
-                <br><b>UPC:</b> {{ BarcodeMatch.upc }}
-                <br>
+                {% if InfoSubmitted.Scan_Type == "Status Check" %}
+                    <br>
+                    <center>
+                        <table>
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center;" colspan=2>
+                                    <text class="SubmittedInfoTitle">
+                                        The Following Match Was Found:
+                                    </text>
+                                </td>
+                            </tr>
+                            {% for item in item_status.items %}
+                                <tr>
+                                    <td style="font-weight: bold">{{ item.0 }}:</td>
+                                    <td style="text-align: center">{{ item.1 }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    </center>
+
+                {% endif %}
             {% else %}
                 <br><text class="SubmittedInfoTitle">No Matches Found!!</text>
             {% endif %}
