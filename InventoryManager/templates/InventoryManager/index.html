@@ -34,7 +34,7 @@
                         {% if StatusUpdated %}
                             <text class="ItemStatusChange">Item Checked In!!!</text>
                         {% else %}
-                            <text class="errorlist">Item Could Not be Updated!!</text>
+                            <text class="errorlist">ERROR: Item Could Not be Updated!!</text>
                         {% endif %}
                         {% include './StatusTable.html' %}
                     </center>
@@ -44,7 +44,7 @@
                         {% if StatusUpdated %}
                             <text class="ItemStatusChange">Item Checked Out!!!</text>
                         {% else %}
-                            <text class="errorlist">Item Could Not be Updated!!</text>
+                            <text class="errorlist">ERROR: Item Could Not be Updated!!</text>
                         {% endif %}
                         {% include './StatusTable.html' %}
                     </center>
