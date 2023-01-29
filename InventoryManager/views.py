@@ -54,9 +54,22 @@ def lookup(request):
             if submitted_upc_info:
                 tech_inv_id = submitted_upc_info['tech_inventory_id']
                 context['BarcodeMatch'] = submitted_upc_info
+
+                item_status = _GetStatusCheck(tech_inv_id, submitted_upc_info['upc'])
+                context['item_status'] = item_status
+
                 if scan_type == "Status Check":
-                    item_status = _GetStatusCheck(tech_inv_id, submitted_upc_info['upc'])
-                    context['item_status'] = item_status
+                    pass
+                elif scan_type == "Check In" or scan_type == "Check Out":
+                    success = _CheckInCheckOut(submitted_upc_info['upc'], scan_type)
+                    if success:
+                        context['StatusUpdated'] = True
+                        item_status = _GetStatusCheck(tech_inv_id, submitted_upc_info['upc'])
+                        context['item_status'] = item_status
+                    else:
+                        context['StatusUpdated'] = False
+                        item_status = _GetStatusCheck(tech_inv_id, submitted_upc_info['upc'])
+                        context['item_status'] = item_status
 
             return render(request, 'InventoryManager/index.html', context)
         else:
@@ -65,11 +78,29 @@ def lookup(request):
             return render(request, 'InventoryManager/index.html', context)
 
 
-def _CheckIn():
-    # TODO: this
-    ...
-
-
-def _CheckOut():
-    # TODO: this
-    ...
+def _CheckInCheckOut(upc, scantype):
+    current_status = ItemStatus.objects.get(barcode__upc=upc).checked_in
+    if not current_status:
+        print("item is currently checked out")
+        IS = ItemStatus.objects.get(barcode__upc=upc)
+        if scantype == "Check In":
+            IS.checked_in = True
+            IS.save()
+            print("Item is now checked in")
+            return True
+        else:
+            print("No change made.")
+            return False
+    elif current_status:
+        print("Item is currently checked in")
+        IS = ItemStatus.objects.get(barcode__upc=upc)
+        if scantype == "Check Out":
+            IS.checked_in = False
+            IS.save()
+            print("Item is now checked out")
+            return True
+        else:
+            print("No change made.")
+            return False
+    else:
+        print("Item's status is unknown")

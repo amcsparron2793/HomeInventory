@@ -8,7 +8,7 @@ class InOutForm(forms.Form):
         if len(str(self)) == 9:
             return True
         else:
-            raise ValidationError("UPC must be 9 characters")
+            raise ValidationError("UPC must be 9 digits")
 
     UPC = forms.IntegerField(validators=[_UPC_Validator])
     Scan_Type = forms.ChoiceField(choices=[(x, x) for x in FormChoices])

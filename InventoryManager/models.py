@@ -62,7 +62,7 @@ class ItemStatus(models.Model):
     barcode = models.ForeignKey(to=Barcodes, on_delete=models.DO_NOTHING)
 
     class Meta:
-        verbose_name_plural = "InOutStatus"
+        verbose_name_plural = "Item Statuses"
 
     def __str__(self):
         return str(self.barcode)

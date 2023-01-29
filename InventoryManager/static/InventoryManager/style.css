@@ -20,3 +20,10 @@ h1, h2 {
     font-size: large;
     font-weight: bold;
 }
+
+.ItemStatusChange {
+    text-align: center;
+    color: #006400FF;
+    font-weight: bold;
+    font-size: large;
+}

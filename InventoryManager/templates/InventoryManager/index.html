@@ -26,30 +26,32 @@
                 {% if InfoSubmitted.Scan_Type == "Status Check" %}
                     <br>
                     <center>
-                        <table>
-                        <tbody>
-                            <tr>
-                                <td style="text-align: center;" colspan=2>
-                                    <text class="SubmittedInfoTitle">
-                                        The Following Match Was Found:
-                                    </text>
-                                </td>
-                            </tr>
-                            {% for item in item_status.items %}
-                                <tr>
-                                    <td style="font-weight: bold">{{ item.0 }}:</td>
-                                    <td style="text-align: center">{{ item.1 }}</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                        {% include './StatusTable.html' %}
                     </center>
-
+                {% elif InfoSubmitted.Scan_Type == "Check In" %}
+                    <br>
+                    <center>
+                        {% if StatusUpdated %}
+                            <text class="ItemStatusChange">Item Checked In!!!</text>
+                        {% else %}
+                            <text class="errorlist">Item Could Not be Updated!!</text>
+                        {% endif %}
+                        {% include './StatusTable.html' %}
+                    </center>
+                {% elif InfoSubmitted.Scan_Type == "Check Out" %}
+                    <br>
+                    <center>
+                        {% if StatusUpdated %}
+                            <text class="ItemStatusChange">Item Checked Out!!!</text>
+                        {% else %}
+                            <text class="errorlist">Item Could Not be Updated!!</text>
+                        {% endif %}
+                        {% include './StatusTable.html' %}
+                    </center>
                 {% endif %}
             {% else %}
                 <br><text class="SubmittedInfoTitle">No Matches Found!!</text>
             {% endif %}
         {% endif %}
-
 </body>
 </html>

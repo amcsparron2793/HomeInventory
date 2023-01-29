@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import ItemNames, Barcodes, TechCategories, TechInventory, Manufacturers, ItemStatus, UseDescription
-
+# TODO: make this work to enter info easier
 # Register your models here.
 admin.site.register(ItemNames)
 admin.site.register(Barcodes)
