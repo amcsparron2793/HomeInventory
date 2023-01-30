@@ -40,7 +40,7 @@ class TechInventory(models.Model):
     manufacturer = models.ForeignKey(to=Manufacturers, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str((self.id, self.item_name))
+        return self.item_name.item_name
 
     class Meta:
         verbose_name_plural = "Tech Inventory"
