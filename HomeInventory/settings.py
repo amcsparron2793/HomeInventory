@@ -45,6 +45,7 @@ def GetDBPass():
 
 INSTALLED_APPS = [
     'import_export',
+    # 'sequences.apps.SequencesConfig',
     'InventoryManager.apps.InventorymanagerConfig',
     'django.contrib.admin',
     'django.contrib.auth',

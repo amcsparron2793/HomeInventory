@@ -48,7 +48,8 @@ class TechInventory(models.Model):
 
 class Barcodes(models.Model):
     tech_inventory = models.ForeignKey(to=TechInventory, on_delete=models.DO_NOTHING)
-    upc = models.IntegerField(unique=True)
+    upc = models.IntegerField(unique=True)  # , default=upc_numbers.get_next_value)
+    # - this requires a sequence be created and 'sequences.apps.SequencesConfig' needs to be in installed_apps
 
     def __str__(self):
         return str(self.upc)
