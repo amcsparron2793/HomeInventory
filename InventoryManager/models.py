@@ -89,23 +89,11 @@ class HouseRooms(models.Model):
         return self.room_name
 
 
-class LoanStatus(models.Model):
-    barcode = models.ForeignKey(to=Barcodes, on_delete=models.DO_NOTHING)
-    is_loaned_out = models.BooleanField(default=False)
-
-    class Meta:
-        verbose_name_plural = "Loan Statuses"
-
-    def __str__(self):
-        return str((self.barcode.upc, ItemNames.objects.get(
-            techinventory__barcodes__upc=self.barcode).item_name))
-
-
 class ItemLocation(models.Model):
     barcode = models.ForeignKey(to=Barcodes, on_delete=models.DO_NOTHING)
     location_room = models.ForeignKey(to=HouseRooms, on_delete=models.DO_NOTHING)
     location_details = models.CharField(max_length=1000)
-    LoanStatus = models.ForeignKey(to=LoanStatus, on_delete=models.DO_NOTHING)
+    is_loaned_out = models.BooleanField(default=False)
 
     def __str__(self):
         return self.barcode.tech_inventory.item_name.item_name

@@ -5,7 +5,7 @@ from django.shortcuts import render
 
 import InventoryManager.models
 from .forms import InOutForm
-from .models import Barcodes, TechInventory, UseDescription, ItemStatus, ItemLocation, LoanStatus
+from .models import Barcodes, TechInventory, UseDescription, ItemStatus, ItemLocation
 
 
 # Create your views here.
@@ -40,29 +40,15 @@ def _GetStatusCheck(tech_id, upc):
 
     try:
         item_location = ItemLocation.objects.get(barcode__upc=upc)
-        is_loaned = LoanStatus.objects.get(barcode__upc=upc)
 
-        final_dict["Item Loaned Out"] = is_loaned.is_loaned_out
         final_dict["Item Location"] = item_location.location_room.room_name
         final_dict["Item Location Details"] = item_location.location_details
+        final_dict["Item Loaned Out"] = item_location.is_loaned_out
+
     except InventoryManager.models.ItemLocation.DoesNotExist:
-        try:
-            is_loaned = LoanStatus.objects.get(barcode__upc=upc)
-            final_dict["Item Loaned Out"] = is_loaned.is_loaned_out
-        except InventoryManager.models.LoanStatus.DoesNotExist:
-            final_dict["Item Loaned Out"] = None
         final_dict["Item Location"] = None
         final_dict["Item Location Details"] = None
-
-    except InventoryManager.models.LoanStatus.DoesNotExist:
         final_dict["Item Loaned Out"] = None
-        try:
-            item_location = ItemLocation.objects.get(barcode__upc=upc)
-            final_dict["Item Location"]: item_location.location_room.room_name
-            final_dict["Item Location Details"]: item_location.location_details
-        except InventoryManager.models.ItemLocation.DoesNotExist:
-            final_dict["Item Location"] = None
-            final_dict["Item Location Details"] = None
 
     print(dumps(final_dict, indent=4))
     return final_dict
