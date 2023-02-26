@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from .models import (ItemNames, Barcodes, TechCategories,
                      TechInventory, Manufacturers, ItemStatus,
-                     UseDescription)
+                     UseDescription, ItemLocation, LoanStatus, HouseRooms)
 
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
@@ -87,6 +87,30 @@ class UseDescriptionAdmin(admin.ModelAdmin):
     ordering = ['barcode__upc']
 
 
+class ItemLocationAdmin(admin.ModelAdmin):
+    list_display = ['item_name', 'barcode', 'location_room', 'location_details']
+    list_display_links = ['item_name', 'barcode']
+
+    # noinspection PyMethodMayBeStatic
+    def item_name(self, obj):
+        return ItemNames.objects.get(techinventory__barcodes__upc=obj.barcode).item_name
+
+
+class LoanStatusAdmin(admin.ModelAdmin):
+    list_display = ['item_name', 'barcode', 'is_loaned_out']
+    list_display_links = ['item_name', 'barcode']
+    ordering = ['barcode__upc']
+
+    # noinspection PyMethodMayBeStatic
+    def item_name(self, obj):
+        return ItemNames.objects.get(techinventory__barcodes__upc=obj.barcode).item_name
+
+
+
+class HouseRoomsAdmin(admin.ModelAdmin):
+    ...
+
+
 # Register your models here.
 admin.site.register(ItemNames, ItemNamesAdmin)
 admin.site.register(TechCategories, TechCategoriesAdmin)
@@ -96,3 +120,7 @@ admin.site.register(Manufacturers, ManufacturersAdmin)
 admin.site.register(Barcodes, BarcodesAdmin)
 admin.site.register(ItemStatus, ItemStatusAdmin)
 admin.site.register(UseDescription, UseDescriptionAdmin)
+
+admin.site.register(ItemLocation, ItemLocationAdmin)
+admin.site.register(LoanStatus, LoanStatusAdmin)
+admin.site.register(HouseRooms, HouseRoomsAdmin)
